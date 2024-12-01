@@ -77,7 +77,7 @@ function BasketPage() {
                   router.push(`/product/${item.product.slug?.current}`)
                 }
               >
-                <div className="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 mr-4">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 mr-4 overflow-hidden">
                   {item.product.image && (
                     <Image
                       src={imageUrl(item.product.image).url()}
@@ -123,13 +123,13 @@ function BasketPage() {
             <button
               onClick={handleCheckout}
               disabled={isLoading}
-              className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
+              className="mt-4 w-full bg-[#008080] hover:bg-[#00B2A9] text-white px-4 py-2 rounded  disabled:bg-gray-400"
             >
               {isLoading ? "Processing ..." : "Checkout"}
             </button>
           ) : (
             <SignInButton mode="modal">
-              <button className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+              <button className="mt-4 w-full bg-[#008080] hover:bg-[#00B2A9] text-white px-4 py-2 rounded">
                 Sign in to Checkout
               </button>
             </SignInButton>

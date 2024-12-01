@@ -26,24 +26,33 @@ function AddToBasketButton({ product, disabled }: AddToBasketButtonProps) {
   }
 
   return (
-    <div className="flex items-center justify-center space-x-2">
+    <div className="flex items-center justify-center space-x-3">
+      {/* Remove Item Button */}
       <button
         onClick={() => removeItem(product._id)}
-        className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${itemCount === 0 ? "bg-gray-100 cursor-not-allowed" : "bg-gray-200 hover:bg-gray-300"}`}
+        className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 
+      ${itemCount === 0 ? "bg-gray-200 cursor-not-allowed shadow-none" : "bg-gray-200 text-gray-600 hover:bg-gray-300 shadow-lg"}`}
         disabled={itemCount === 0 || disabled}
       >
         <span
-          className={`text-xl font-bold ${itemCount === 0 ? "text-gray-400" : "text-gray-600"}`}
+          className={`text-xl font-semibold ${itemCount === 0 ? "text-gray-400" : "text-gray-600"}`}
         >
           -
         </span>
       </button>
-      <span className="w-8 text-center font-semibold">{itemCount}</span>
+
+      {/* Item Count */}
+      <span className="w-10 text-center font-semibold text-[#333333]">
+        {itemCount}
+      </span>
+
+      {/* Add Item Button */}
       <button
         onClick={() => addItem(product)}
-        className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${disabled ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"}`}
+        className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 
+      ${disabled ? "bg-gray-400 cursor-not-allowed" : "bg-[#008080] text-white hover:bg-[#006666] shadow-lg"}`}
       >
-        <span>+</span>
+        <span className="text-lg font-bold">+</span>
       </button>
     </div>
   );

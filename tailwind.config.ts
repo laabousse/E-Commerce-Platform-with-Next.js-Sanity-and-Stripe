@@ -51,6 +51,23 @@ export default {
           "5": "hsl(var(--chart-5))",
         },
       },
+      animation: {
+        // Updated animation definitions
+        "pulse-soft": "pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "pulse-subtle":
+          "pulse-subtle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+      },
+      keyframes: {
+        // Explicit keyframe definitions
+        "pulse-soft": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.6" },
+        },
+        "pulse-subtle": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.8" },
+        },
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
