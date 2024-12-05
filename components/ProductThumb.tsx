@@ -2,18 +2,21 @@ import imageUrl from "@/lib/imageUrl";
 import { Product } from "@/sanity.types";
 import Image from "next/image";
 import Link from "next/link";
+import AddToBasketButton from "./AddToBasketButton";
 
 function ProductThumb({ product }: { product: Product }) {
   const isOutOfStock = product.stock != null && product.stock <= 0;
   return (
     <Link
       href={`/product/${product.slug?.current}`}
-      className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${isOutOfStock ? "opacity-50" : ""}`}
+      className={`group flex flex-col bg-white rounded-2xl border border-gray-200 shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden h-full ${
+        isOutOfStock ? "opacity-50" : ""
+      }`}
     >
-      <div className="relative aspect-square w-full h-full overflow-hidden">
+      <div className="relative aspect-square w-full overflow-hidden bg-gray-100">
         {product.image && (
           <Image
-            className="object-contain transition-transform duration-300 group-hover:scale-150"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             src={imageUrl(product.image).url()}
             alt={product.name || "Product image"}
             fill
@@ -21,16 +24,18 @@ function ProductThumb({ product }: { product: Product }) {
           />
         )}
         {isOutOfStock && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <span className="text-white font-bold text-lg">Out of Stock</span>
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-md">
+            <span className="text-white font-bold text-lg px-4 py-2 rounded-full bg-black/50">
+              Out of Stock
+            </span>
           </div>
         )}
       </div>
-      <div className="p-4">
-        <h2 className="text-lg font-semibold text-gray-800 truncate">
+      <div className="p-6 flex flex-col flex-1">
+        <h2 className="text-lg font-semibold text-gray-900 truncate hover:text-blue-500 transition-colors duration-200">
           {product.name}
         </h2>
-        <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+        <p className="mt-2 text-sm text-gray-700 line-clamp-2 flex-1">
           {product.description
             ?.map((block) =>
               block._type === "block"
@@ -39,9 +44,14 @@ function ProductThumb({ product }: { product: Product }) {
             )
             .join(" ") || "No description available"}
         </p>
-        <p className="mt-2 text-lg font-bold text-gray-900">
-          ${product.price?.toFixed(2)}
-        </p>
+        <div className="mt-4 flex items-center justify-between">
+          <p className="text-xl font-bold text-gray-900">
+            ${product.price?.toFixed(2)}
+          </p>
+          <div onClick={(e) => e.preventDefault()}>
+            <AddToBasketButton product={product} disabled={isOutOfStock} />
+          </div>
+        </div>
       </div>
     </Link>
   );

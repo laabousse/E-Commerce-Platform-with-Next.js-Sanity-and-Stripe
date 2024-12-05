@@ -37,41 +37,39 @@ export function CategorySelectorComponent({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full max-w-full relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2  bg-[#008080] hover:bg-[#006666] hover:text-white text-white font-bold py-2 px-4 rounded"
+          className="w-full relative flex items-center justify-between
+            bg-gradient-to-r from-teal-500 to-teal-600
+            hover:from-teal-600 hover:to-teal-700
+            text-white hover:text-white
+            font-medium
+            px-4 py-2.5 rounded-lg
+            transition-all duration-200 ease-in-out
+            shadow-sm hover:shadow-md"
         >
-          {value
-            ? categories.find((category) => category._id === value)?.title
-            : "Filter by category"}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0" />
+          <span className="truncate">
+            {value
+              ? categories.find((category) => category._id === value)?.title
+              : "Filter by category"}
+          </span>
+          <ChevronsUpDown className="ml-2 h-4 w-4 opacity-70" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
-        <Command>
+      <PopoverContent className="w-[200px] p-0 shadow-lg rounded-lg border-0">
+        <Command className="rounded-lg">
           <CommandInput
             placeholder="Search category..."
-            className="h-9"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                const selectedCategory = categories.find((c) =>
-                  c.title
-                    ?.toLowerCase()
-                    .includes(e.currentTarget.value.toLowerCase())
-                );
-                if (selectedCategory?.slug?.current) {
-                  setValue(selectedCategory._id);
-                  router.push(`/categories/${selectedCategory.slug.current}`);
-                  setOpen(false);
-                }
-              }
-            }}
+            className="h-9 rounded-t-lg border-0 focus:ring-2 focus:ring-teal-500 px-2"
           />
           <CommandList>
-            <CommandEmpty>No category found.</CommandEmpty>
-            <CommandGroup>
+            <CommandEmpty className="py-6 text-sm text-gray-500">
+              No category found.
+            </CommandEmpty>
+            <CommandGroup className="p-1.5">
               {categories.map((category) => (
                 <CommandItem
                   key={category._id}
                   value={category.title}
+                  className="rounded-md cursor-pointer hover:bg-teal-50 aria-selected:bg-teal-100 transition-colors"
                   onSelect={() => {
                     setValue(value === category._id ? "" : category._id);
                     router.push(`/categories/${category.slug?.current}`);
@@ -81,7 +79,7 @@ export function CategorySelectorComponent({
                   {category.title}
                   <Check
                     className={cn(
-                      "ml-auto h-4 w-4",
+                      "ml-auto h-4 w-4 text-teal-600",
                       value === category._id ? "opacity-100" : "opacity-0"
                     )}
                   />

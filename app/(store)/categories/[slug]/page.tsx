@@ -16,16 +16,20 @@ async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   );
 
   return (
-    <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          {slug
-            .split("_")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ")}{" "}
-          Collection
-        </h1>
-        <ProductsView products={products} categories={categories} />
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-blue-500">
+            {slug
+              .split("_")
+              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(" ")}{" "}
+            Collection
+          </h1>
+          <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 md:p-8">
+            <ProductsView products={products} categories={categories} />
+          </div>
+        </div>
       </div>
     </div>
   );

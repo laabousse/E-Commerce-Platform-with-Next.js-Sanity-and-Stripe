@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 import typography from "@tailwindcss/typography";
@@ -45,22 +46,16 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
-        },
       },
       animation: {
-        // Updated animation definitions
         "pulse-soft": "pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "pulse-subtle":
           "pulse-subtle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        glitch: "glitch 2s infinite alternate",
+        "gradient-x": "gradient-x 15s ease infinite",
       },
       keyframes: {
-        // Explicit keyframe definitions
         "pulse-soft": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.6" },
@@ -69,12 +64,52 @@ export default {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.8" },
         },
+        glitch: {
+          "0%": {
+            transform: "translate(0)",
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
+          },
+          "5%": {
+            transform: "translate(-5px, -5px)",
+            clipPath: "polygon(0 20%, 100% 20%, 100% 100%, 0% 100%)",
+          },
+          "10%": {
+            transform: "translate(-10px, 5px)",
+            clipPath: "polygon(0 40%, 100% 40%, 100% 60%, 0% 60%)",
+          },
+          "15%": {
+            transform: "translate(5px, -10px)",
+            clipPath: "polygon(0 60%, 100% 60%, 100% 80%, 0% 80%)",
+          },
+          "20%": {
+            transform: "translate(-10px, 10px)",
+            clipPath: "polygon(0 80%, 100% 80%, 100% 100%, 0% 100%)",
+          },
+          "25%": { transform: "translate(10px, -5px)" },
+          "30%": { transform: "translate(-10px, 0px)" },
+          "35%": { transform: "translate(0)" },
+        },
+        "gradient-x": {
+          "0%, 100%": {
+            "background-size": "200% 200%",
+            "background-position": "left center",
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center",
+          },
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+    },
+  },
+  variants: {
+    extend: {
+      animation: ["motion-reduce"],
     },
   },
   plugins: [tailwindcssAnimate, typography],
